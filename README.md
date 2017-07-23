@@ -34,5 +34,5 @@ node 'puppetclient1' {
 
 ## Authors
 
-Nasheb Ismaily
+Nasheb Ismaily  
 James Jones
