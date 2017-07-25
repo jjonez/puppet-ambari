@@ -6,9 +6,9 @@ dbname=hive
 postgres=postgres
 user=hive
 passwd=hive
-echo "CREATE DATABASE $dbname;" | sudo -u $postgres psql -U postgres
-echo "CREATE USER $user WITH PASSWORD '$passwd';" | sudo -u $postgres psql -U postgres
-echo "GRANT ALL PRIVILEGES ON DATABASE $dbname TO $user;" | sudo -u $postgres psql -U postgres
+echo "CREATE DATABASE $dbname;" | su - $postgres -c "psql -U postgres"
+echo "CREATE USER $user WITH PASSWORD '$passwd';" | su - $postgres -c "psql -U postgres"
+echo "GRANT ALL PRIVILEGES ON DATABASE $dbname TO $user;" | su - $postgres -c "psql -U postgres"
 
 #Oozie
 
@@ -16,9 +16,9 @@ dbname=oozie
 postgres=postgres
 user=oozie
 passwd=oozie
-echo "CREATE DATABASE $dbname;" | sudo -u $postgres psql -U postgres
-echo "CREATE USER $user WITH PASSWORD '$passwd';" | sudo -u $postgres psql -U postgres
-echo "GRANT ALL PRIVILEGES ON DATABASE $dbname TO $user;" | sudo -u $postgres psql -U postgres
+echo "CREATE DATABASE $dbname;" | su - $postgres -c "psql -U postgres"
+echo "CREATE USER $user WITH PASSWORD '$passwd';" | su - $postgres -c "psql -U postgres"
+echo "GRANT ALL PRIVILEGES ON DATABASE $dbname TO $user;" | su - $postgres -c "psql -U postgres"
 
 #Ranger
 
@@ -26,9 +26,9 @@ dbname=ranger
 postgres=postgres
 user=rangeradmin
 passwd=ranger
-echo "CREATE DATABASE $dbname;" | sudo -u $postgres psql -U postgres
-echo "CREATE USER $user WITH PASSWORD '$passwd';" | sudo -u $postgres psql -U postgres
-echo "GRANT ALL PRIVILEGES ON DATABASE $dbname TO $user;" | sudo -u $postgres psql -U postgres
+echo "CREATE DATABASE $dbname;" | su - $postgres -c "psql -U postgres"
+echo "CREATE USER $user WITH PASSWORD '$passwd';" | su - $postgres -c "psql -U postgres"
+echo "GRANT ALL PRIVILEGES ON DATABASE $dbname TO $user;" | su - $postgres -c "psql -U postgres"
 
 #Ranger KMS
 
@@ -36,9 +36,9 @@ dbname=rangerkms
 postgres=postgres
 user=rangerkms
 passwd=ranger
-echo "CREATE DATABASE $dbname;" | sudo -u $postgres psql -U postgres
-echo "CREATE USER $user WITH PASSWORD '$passwd';" | sudo -u $postgres psql -U postgres
-echo "GRANT ALL PRIVILEGES ON DATABASE $dbname TO $user;" | sudo -u $postgres psql -U postgres
+echo "CREATE DATABASE $dbname;" | su - $postgres -c "psql -U postgres"
+echo "CREATE USER $user WITH PASSWORD '$passwd';" | su - $postgres -c "psql -U postgres"
+echo "GRANT ALL PRIVILEGES ON DATABASE $dbname TO $user;" | su - $postgres -c "psql -U postgres"
 
 #Druid and SupersetMetadata
 
@@ -46,18 +46,18 @@ dbname=druid
 postgres=postgres
 user=druid
 passwd=druid
-echo "CREATE DATABASE $dbname;" | sudo -u $postgres psql -U postgres
-echo "CREATE USER $user WITH PASSWORD '$passwd';" | sudo -u $postgres psql -U postgres
-echo "GRANT ALL PRIVILEGES ON DATABASE $dbname TO $user;" | sudo -u $postgres psql -U postgres
+echo "CREATE DATABASE $dbname;" | su - $postgres -c "psql -U postgres"
+echo "CREATE USER $user WITH PASSWORD '$passwd';" | su - $postgres -c "psql -U postgres"
+echo "GRANT ALL PRIVILEGES ON DATABASE $dbname TO $user;" | su - $postgres -c "psql -U postgres"
 
 dbname=superset
 postgres=postgres
 user=superset
 passwd=superset
-echo "CREATE DATABASE $dbname;" | sudo -u $postgres psql -U postgres
-echo "CREATE USER $user WITH PASSWORD '$passwd';" | sudo -u $postgres psql -U postgres
-echo "GRANT ALL PRIVILEGES ON DATABASE $dbname TO $user;" | sudo -u $postgres psql -U postgres
-echo "alter user $user superuser;" | sudo -u $postgres psql -U postgres
+echo "CREATE DATABASE $dbname;" | su - $postgres -c "psql -U postgres"
+echo "CREATE USER $user WITH PASSWORD '$passwd';" | su - $postgres -c "psql -U postgres"
+echo "GRANT ALL PRIVILEGES ON DATABASE $dbname TO $user;" | su - $postgres -c "psql -U postgres"
+echo "alter user $user superuser;" | su - $postgres -c "psql -U postgres"
 
 
 
