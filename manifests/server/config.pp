@@ -2,7 +2,7 @@ class ambari::server::config {
 
  # Run ambari's inital setup 
 
- $java_home =  '/usr/lib/jvm/java-1.8.0-openjdk'
+ $java_home =  $::ambari::params::java_home
 
  # Iinitial setup ambari server
  file { 
@@ -20,7 +20,7 @@ class ambari::server::config {
 
  exec {
   'run_ambari_server_setup':
-  command => "/tmp/ambari_setup_script.exp ${java_home}",
+  command => "/tmp/ambari_setup_script.exp ${java_home} | tee /tmp/ambari_setup_script.exp.log",
   refreshonly => true
  }
 
