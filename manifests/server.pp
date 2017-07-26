@@ -1,12 +1,17 @@
-# Class: ambari::server 
-class ambari::server inherits ambari {
-    include ambari::server::install
-    include ambari::server::config
-    include ambari::server::service
-    include ambari::server::db::pgsql
-    include ambari::server::db::hdpdb
-    include ambari::server::db::connector
-    include ambari::server::blueprints::cluster
-    include ambari::server::blueprints::hostmap
+class ambari::server(
+
+  $java_home		     = $::ambari::params::java_home
+
+)inherits ::ambari::params {
+
+
+  contain ambari::server::install
+  contain ambari::server::config
+  contain ambari::server::service
+
+  Class[::ambari::server::install] ->
+  Class[::ambari::server::config]  ->
+  Class[::ambari::server::service]
+
 }
 

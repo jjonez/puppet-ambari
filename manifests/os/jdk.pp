@@ -1,8 +1,8 @@
-# == Class: ambari::jdk
-class ambari::os::jdk inherits ambari {
+class ambari::os::jdk() {
 
- # Install JDK
- package { 'java-1.8.0-openjdk':
+ $java_version = $::ambari::os::java_version
+
+ package { "${java_version}":
    ensure => 'installed',
    require => Package['yum']
  }

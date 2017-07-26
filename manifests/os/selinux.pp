@@ -1,17 +1,14 @@
-# == Class: ambari::selinux
-class ambari::os::selinux inherits ambari {
+class ambari::os::selinuix() {
 
- # Disable Transparent Hugepage in Current Session
- exec {
-  'disable_selinix':
-  command => 'setenforce 0',
-  refreshonly => true
- }
-
- # Disable SELINUX
  file { '/etc/selinux/config':
-  ensure  => file,
-  content => template('ambari/config.erb'),
+   ensure  => file,
+   content => template('ambari/config.erb'),
+   notify => Exec['disable_selinix']
+ }->
+ exec {
+   'disable_selinix':
+   command => 'setenforce 0',
+   refreshonly => true
  }
 
 }

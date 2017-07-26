@@ -1,5 +1,4 @@
-# == Class: ambari::packages
-class ambari::os::packages inherits ambari {
+class ambari::os::packages() {
 
  # Install Pre-required Software
  $hdp_prereq_software = [ 'chkconfig', 'curl', 'rpm', 'openssh-clients', 'tar', 'unzip', 'wget', 'yum', 'expect' ]

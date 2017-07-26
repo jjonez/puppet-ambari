@@ -1,11 +1,12 @@
-# == Class: ambari::repo::ambari
-class ambari::repo::ambari {
- # Configure all repos required for Ambari
+class ambari::repo::ambari() {
+
+ $ambari_repo_url = $::ambari::repo::ambari_repo_url
 
  yumrepo { 'ambari':
    descr    => 'ambari Version - ambari-2.5.1.0',
    enabled  => 0,
-   baseurl  => 'http://public-repo-1.hortonworks.com/ambari/centos7/2.x/updates/2.5.1.0',
+   baseurl  => "${ambari_repo_url}",
    gpgcheck => 0,
  }
+
 }

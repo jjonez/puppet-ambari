@@ -13,12 +13,11 @@
 # See the License for the specific
 
 [server]
-hostname=<%= @amb_sever_hostname %>
-url_port=8440
-secured_url_port=8441
+hostname=<%= @ambari_server %>
+url_port=<%= @ambari_server_port %>
+secured_url_port=<%= @ambari_server_secure_port %>
 connect_retry_delay=10
 max_reconnect_retry_delay=30
-
 
 [agent]
 logdir=/var/log/ambari-agent

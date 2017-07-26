@@ -17,3 +17,4 @@ send "n\r"
 expect "*"
 expect "Ambari Server 'setup' completed successfully."
 interact
+
