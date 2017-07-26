@@ -15,5 +15,8 @@ expect "*"
 expect "Enter advanced database configuration \[y/n\] (n)?"
 send "n\r"
 expect "*"
+
+#Sleep is required or expect will abort before setup completes
+sleep 20  
 expect "Ambari Server 'setup' completed successfully."
 interact
