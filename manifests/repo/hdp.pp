@@ -5,13 +5,13 @@ class ambari::repo::hdp() {
  
  yumrepo { 'hdp':
    descr    => 'HDP Version - HDP-2.6.1.0',
-   enabled  => 0,
+   enabled  => 1,
    baseurl  => "${hdp_repo_url}",
    gpgcheck => 0,
  }->
  yumrepo { 'hdp-utils':
    descr    => 'HDP-UTILS Version - HDP-UTILS-1.1.0.21',
-   enabled  => 0,
+   enabled  => 1,
    baseurl  => "${hdp_utils_repo_url}",
    gpgcheck => 0,
  }

@@ -4,7 +4,7 @@ class ambari::repo::ambari() {
 
  yumrepo { 'ambari':
    descr    => 'ambari Version - ambari-2.5.1.0',
-   enabled  => 0,
+   enabled  => 1,
    baseurl  => "${ambari_repo_url}",
    gpgcheck => 0,
  }
