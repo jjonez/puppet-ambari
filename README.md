@@ -28,7 +28,7 @@ git clone https://github.com/nashebismaily/puppet-ambari.git ambari
 
 vi /etc/puppetlabs/code/environments/production/manifests/site.pp  
 
-node 'puppetclient1' {  
+node 'puppet' {  
   include ambari  
   class { 'ambari::server':}  
 }  
