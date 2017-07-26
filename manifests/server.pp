@@ -1,5 +1,7 @@
 # Class: ambari::server 
 class ambari::server inherits ambari {
+    include ambari::agent
+
     include ambari::server::install
     include ambari::server::config
     include ambari::server::service
