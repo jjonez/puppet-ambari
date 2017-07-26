@@ -13,9 +13,15 @@ class ambari::server::config() {
    require => Class['::ambari::server::install'],
    notify => Exec['run_ambari_server_setup_script']
  } ->
+# Incase Expect is giving us trouble
+# exec {
+#  'run_ambari_server_setup_script':
+#  command => "/tmp/ambari_setup_script.exp ${java_home}"
+# }
+ # This will run accepting all default values
  exec {
   'run_ambari_server_setup_script':
-  command => "/tmp/ambari_setup_script.exp ${java_home}"
+  command => "/usr/sbin/ambari-server setup -j ${java_home} -s"
  }
 
 }

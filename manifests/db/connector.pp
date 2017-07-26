@@ -7,7 +7,7 @@ class ambari::db::connector() {
  } ->
  exec {
    'configure_ambari_postgres_connector':
-   command => "ambari-server setup --jdbc-db=postgres --jdbc-driver=/usr/share/java/postgresql-jdbc.jar",
+   command => "/usr/sbin/ambari-server setup --jdbc-db=postgres --jdbc-driver=/usr/share/java/postgresql-jdbc.jar",
    path => '/usr/sbin/',
    require => Class['::ambari::server::config'],
    refreshonly => true
