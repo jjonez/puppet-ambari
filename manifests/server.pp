@@ -6,5 +6,7 @@ class ambari::server inherits ambari {
     include ambari::server::db::pgsql
     include ambari::server::db::hdpdb
     include ambari::server::db::connector
+    include ambari::server::blueprints::cluster
+    include ambari::server::blueprints::hostmap
 }
 
