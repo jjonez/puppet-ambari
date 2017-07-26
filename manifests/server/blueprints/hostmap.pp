@@ -7,6 +7,7 @@ class ambari::server::blueprints::hostmap {
  $url = "http://$amb_sever_hostname:8080/api/v1/clusters/$cluster_name"
 
  require ambari::os::packages
+ require ambari::server::install
 
  # Register the hosts map
  file {

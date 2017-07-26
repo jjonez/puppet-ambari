@@ -8,6 +8,7 @@ class ambari::server::blueprints::cluster {
  $url = "http://$amb_sever_hostname:8080/api/v1/blueprints/$cluster_name" 
 
  require ambari::os::packages
+ require ambari::server::install
 
  # Register cluster_config.json
  file {
