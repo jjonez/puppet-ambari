@@ -1,0 +1,43 @@
+{
+    "Blueprints": {
+        "blueprint_name": "hdp1",
+        "stack_name": "HDP",
+        "stack_version": "2.6"
+    },
+    "configurations": [],
+    "host_groups": [
+        {
+            "cardinality": "1",
+            "components": [
+                {
+                    "name": "METRICS_COLLECTOR"
+                },
+                {
+                    "name": "METRICS_MONITOR"
+                },
+                {
+                    "name": "ZOOKEEPER_SERVER"
+                },
+                {
+                    "name": "ZOOKEEPER_CLIENT"
+                }
+            ],
+            "name": "master_nodes"
+        },
+        {
+            "cardinality": "<%= @num_datanodes %>",
+            "components": [
+                {
+                    "name": "METRICS_MONITOR"
+                },
+                {
+                    "name": "ZOOKEEPER_SERVER"
+                },
+                {
+                    "name": "ZOOKEEPER_CLIENT"
+                }
+            ],
+            "name": "data_nodes"
+        }
+    ]
+}

@@ -1,0 +1,22 @@
+{
+    "blueprint": "<%= @cluster_name %>",
+    "default_password": "admin",
+    "host_groups": [
+        {
+            "hosts": [
+                {
+                    "fqdn": "puppet.local"
+                }
+            ],
+            "name": "master_nodes"
+        },
+        {
+            "hosts": [
+                {
+                    "fqdn": "puppetclient1"
+                }
+            ],
+            "name": "data_nodes"
+        }
+    ]
+}

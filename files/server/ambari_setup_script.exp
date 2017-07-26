@@ -1,0 +1,20 @@
+#!/usr/bin/expect
+
+# Setup Ambari Server
+
+set java_home [lindex $argv 0]
+
+spawn ambari-server setup -j $java_home
+expect "*"
+expect "SELinux status is 'disabled'"
+expect "Customize user account for ambari-server daemon \[y/n\] (n)? "
+send "y\r"
+expect "Enter user account for ambari-server daemon (root):"
+send "root\r"
+expect "*"
+expect "Enter advanced database configuration \[y/n\] (n)?"
+send "n\r"
+expect "*"
+expect "Ambari Server 'setup' completed successfully."
+interact
+

@@ -1,0 +1,168 @@
+{
+    "Blueprints": {
+        "blueprint_name": "hdp1",
+        "stack_name": "HDP",
+        "stack_version": "2.6"
+    },
+    "configurations" : [
+     {
+       "hdfs-site" : {
+         "properties_attributes" : { },
+         "properties" : {
+           "dfs.datanode.data.dir" : "/data1/hadoop/hdfs/data,/data2/hadoop/hdfs/data"          
+           }
+        }
+     },
+     {
+       "yarn-site" : {
+         "properties_attributes" : { },
+         "properties" : {
+           "yarn.nodemanager.local-dirs" : "/data1/hadoop/yarn/local,/data2/hadoop/yarn/local",
+           "yarn.nodemanager.log-dirs" : "/data1/hadoop/yarn/log,/data2/hadoop/yarn/log"
+         }
+       }
+     },
+     {
+      "zoo.cfg" : {
+        "properties_attributes" : { },
+        "properties" : {
+          "dataDir" : "/hadoop/zookeeper"
+        }
+      }
+    }
+    ],
+    "host_groups": [
+        {
+            "cardinality": "1",
+            "components": [
+                {
+                    "name": "PIG"
+                },
+                {
+                    "name": "METRICS_COLLECTOR"
+                },
+                {
+                    "name": "HISTORYSERVER"
+                },
+                {
+                    "name": "OOZIE_CLIENT"
+                },
+                {
+                    "name": "NAMENODE"
+                },
+                {
+                    "name": "RESOURCEMANAGER"
+                },
+                {
+                    "name": "SUPERVISOR"
+                },
+                {
+                    "name": "HCAT"
+                },
+                {
+                    "name": "METRICS_MONITOR"
+                },
+                {
+                    "name": "APP_TIMELINE_SERVER"
+                },
+                {
+                    "name": "HDFS_CLIENT"
+                },
+                {
+                    "name": "HIVE_CLIENT"
+                },
+                {
+                    "name": "FLUME_HANDLER"
+                },
+                {
+                    "name": "WEBHCAT_SERVER"
+                },
+                {
+                    "name": "ZOOKEEPER_SERVER"
+                },
+                {
+                    "name": "ZOOKEEPER_CLIENT"
+                },
+                {
+                    "name": "STORM_UI_SERVER"
+                },
+                {
+                    "name": "MYSQL_SERVER"
+                },
+                {
+                    "name": "HIVE_SERVER"
+                },
+                {
+                    "name": "TEZ_CLIENT"
+                },
+                {
+                    "name": "HIVE_METASTORE"
+                },
+                {
+                    "name": "SQOOP"
+                },
+                {
+                    "name": "YARN_CLIENT"
+                },
+                {
+                    "name": "MAPREDUCE2_CLIENT"
+                },
+                {
+                    "name": "NIMBUS"
+                },
+                {
+                    "name": "DRPC_SERVER"
+                }
+            ],
+            "name": "master_node"
+        },
+        {
+            "cardinality": "<%= @num_datanodes %>",
+            "components": [
+                {
+                    "name": "OOZIE_SERVER"
+                },
+                {
+                    "name": "SECONDARY_NAMENODE"
+                },
+                {
+                    "name": "PIG"
+                },
+                {
+                    "name": "OOZIE_CLIENT"
+                },
+                {
+                    "name": "HCAT"
+                },
+                {
+                    "name": "METRICS_MONITOR"
+                },
+                {
+                    "name": "TEZ_CLIENT"
+                },
+                {
+                    "name": "SQOOP"
+                },
+                {
+                    "name": "HIVE_CLIENT"
+                },
+                {
+                    "name": "HDFS_CLIENT"
+                },
+                {
+                    "name": "NODEMANAGER"
+                },
+                {
+                    "name": "YARN_CLIENT"
+                },
+                {
+                    "name": "MAPREDUCE2_CLIENT"
+                },
+                {
+                    "name": "DATANODE"
+                }
+            ],
+            "name": "data_node"
+        }
+    ]
+}
