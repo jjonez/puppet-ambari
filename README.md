@@ -28,18 +28,22 @@ git clone https://github.com/nashebismaily/puppet-ambari.git ambari
 
 vi /etc/puppetlabs/code/environments/production/manifests/site.pp  
 
-node 'puppetclient1' {  
-  include ambari  
-  class { 'ambari::server':}  
-}  
 
 node 'puppetclient1' {  
-  include ambari  
-  class { 'ambari::agent':}  
+ include ambari  
+
+  class { 'ambari::os':} ->  
+  class { 'ambari::repo':} ->  
+  class { 'ambari::agent':} ->  
+  class { 'ambari::server':} ->  
+  class { 'ambari::db':} ->  
+  class { 'ambari::blueprint':}  
+
 }  
 
+# node default {}       # uncomment this line if it doesn't already exist in your manifest  
 
 ## Authors
 
-Nasheb Ismaily
-James Jones  
+Nasheb Ismaily  
+James Jones 
