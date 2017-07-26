@@ -4,7 +4,7 @@ class ambari::repo::ambari {
 
  yumrepo { 'ambari':
    descr    => 'ambari Version - ambari-2.5.1.0',
-   enabled  => 0,
+   enabled  => 1,
    baseurl  => 'http://public-repo-1.hortonworks.com/ambari/centos7/2.x/updates/2.5.1.0',
    gpgcheck => 0,
  }
