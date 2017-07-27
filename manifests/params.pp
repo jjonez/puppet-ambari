@@ -1,7 +1,7 @@
 class ambari::params {
  
   # Ambari Server Params
-  $ambari_server 		= 'puppet.local'
+  $ambari_server 		= 'puppet'
   $ambari_server_port 		= 8080
   $ambari_comm_port 		= 8440
   $ambari_comm_secure_port 	= 8441  # for future use
