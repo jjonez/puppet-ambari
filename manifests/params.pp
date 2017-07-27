@@ -1,9 +1,9 @@
 class ambari::params {
  
   # Ambari Server Params
-  $ambari_server 		= 'puppet'
-  $ambari_server_port 		= 8440
-  $ambari_server_secure_port 	= 8441
+  $ambari_server 		= 'puppet.local'
+  $ambari_server_port 		= 8080
+  $ambari_server_secure_port 	= 8441  # for future use
 
   # Ambari/HDP Repo URL's
   $ambari_repo_url           	= 'http://public-repo-1.hortonworks.com/ambari/centos7/2.x/updates/2.5.1.0' 
