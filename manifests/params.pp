@@ -1,7 +1,7 @@
 class ambari::params {
  
   # Ambari Server Params
-  $ambari_server 		= 'puppetclient1'
+  $ambari_server 		= 'puppet'
   $ambari_server_port 		= 8440
   $ambari_server_secure_port 	= 8441
 
@@ -11,7 +11,7 @@ class ambari::params {
   $hdp_utils_repo_url        	= 'http://public-repo-1.hortonworks.com/HDP-UTILS-1.1.0.21/repos/centos7'
 
   # Java Prams
-  $java_version                 = 'java-1.8.0-openjdk'
+  $java_version                 = 'java-1.8.0-openjdk-devel'
   $java_home 			= '/usr/lib/jvm/java-1.8.0-openjdk'
 
   # Blueprint params 

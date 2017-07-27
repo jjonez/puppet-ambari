@@ -1,6 +1,6 @@
 class ambari::blueprint(
 
-  $ambari_sever_hostname     = $::ambari::params::ambari_sever_hostname,
+  $ambari_server             = $::ambari::params::ambari_server,
   $ambari_server_port        = $::ambari::params::ambari_server_port,
   $ambari_server_secure_port = $::ambari::params::ambari_server_secure_port,
   $num_datanodes 	     = $::ambari::params::num_datanodes,
