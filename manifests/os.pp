@@ -9,12 +9,14 @@ class ambari::os(
   contain ambari::os::jdk
   contain ambari::os::ntp
   contain ambari::os::thp
+  contain ambari::os::limits
 
   Class[::ambari::os::packages] ->
   Class[::ambari::os::jdk] ->
   Class[::ambari::os::firewall] ->
   Class[::ambari::os::ntp] ->
-  Class[::ambari::os::thp]
+  Class[::ambari::os::thp] ->
+  Class[::ambari::os::limits]
 
 }
 
