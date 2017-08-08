@@ -11,7 +11,7 @@ class ambari::db::pgsql() {
    'configure_postgres_hdp_script' :
    ensure => 'file',
    source => 'puppet:///modules/ambari/db/configure_postgres.sh',
-   path => '/tmp/configure_postgres.sh',
+   path => '/var/lib/puuppet-ambari/configure_postgres.sh',
    owner => 'root',
    group => 'root',
    mode  => '0744',
@@ -20,7 +20,7 @@ class ambari::db::pgsql() {
  } ->
  exec {
   'run_configure_postgres_hdp_script':
-  command => "/bin/bash /tmp/configure_postgres.sh",
+  command => "/bin/bash /var/lib/puuppet-ambari/configure_postgres.sh",
   refreshonly => true
  }
 

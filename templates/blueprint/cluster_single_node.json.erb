@@ -27,21 +27,6 @@
 
             ],
             "name": "master_nodes"
-        },
-        {
-            "cardinality": "<%= @num_datanodes %>",
-            "components": [
-                {
-                    "name": "METRICS_MONITOR"
-                },
-                {
-                    "name": "ZOOKEEPER_SERVER"
-                },
-                {
-                    "name": "ZOOKEEPER_CLIENT"
-                }
-            ],
-            "name": "data_nodes"
         }
     ]
 }

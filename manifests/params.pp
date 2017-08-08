@@ -1,10 +1,12 @@
 class ambari::params {
  
   # Ambari Server Params
-  $ambari_server 		= 'puppet'
+  $ambari_server 		= 'puppetclient1.my.local'
   $ambari_server_port 		= 8080
   $ambari_comm_port 		= 8440
   $ambari_comm_secure_port 	= 8441  # for future use
+
+  $hdp_stack_version            = '2.6.1'
 
   $ambari_user                  = 'ambari'  
   $hadoop_group                 = 'hadoop'  # Ignored if $ambari_user is 'root'
@@ -21,7 +23,7 @@ class ambari::params {
   # Blueprint params 
   $num_datanodes 		= 1 
   $cluster_name  		= 'hdp1'  # recommended to use all lowercase, only letters and numbers
-  $cluster_config 		= 'cluster_tiny_1_master.json.erb'
-  $hostmap_config 		= 'hostmap.json.erb'
+  $cluster_config 		= 'cluster_single_node.json.erb'
+  $hostmap_config 		= 'hostmap_single.json.erb'
 
 }

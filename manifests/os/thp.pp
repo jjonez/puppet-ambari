@@ -4,7 +4,7 @@ class ambari::os::thp() {
    'disable_thp_script':
    ensure => 'file',
    source => 'puppet:///modules/ambari/os/disable_thp_script.sh',
-   path => '/tmp/disable_thp_script.sh',
+   path => '/var/lib/puuppet-ambari/disable_thp_script.sh',
    owner => 'root',
    group => 'root',
    mode  => '0744',
@@ -12,7 +12,7 @@ class ambari::os::thp() {
  } ->
  exec {
    'run_disable_thp_script':
-   command => '/tmp/disable_thp_script.sh',
+   command => '/var/lib/puuppet-ambari/disable_thp_script.sh',
    refreshonly => true
  } ->
  file { '/etc/rc.local':

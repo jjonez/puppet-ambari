@@ -5,7 +5,7 @@ class ambari::server::config() {
  exec {
    'run_ambari_server_setup_script':
    command => "/usr/sbin/ambari-server setup -j ${java_home} -s",
-   require => Class['::ambari::server::install']
+   require => Class['::ambari::server::ambari_user']
  }
 
 }

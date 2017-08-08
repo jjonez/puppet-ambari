@@ -7,6 +7,6 @@ class ambari::server::ambari_user() {
    line    => "ambari-server.user=${ambari_user}",
    match   => "^ambari-server.user=*$",
    require => Class['::ambari::os::ambari_user_prep'],
- }
+ } 
 
 }

@@ -1,7 +1,7 @@
 class ambari::db::hdpdb() {
 
  file {
-   '/tmp/configure_hdp_db_script.sh' :
+   '/var/lib/puuppet-ambari/configure_hdp_db_script.sh' :
    ensure => 'file',
    content => template('ambari/db/configure_hdp_db.sh.erb'), 
    owner => 'root',
@@ -12,7 +12,7 @@ class ambari::db::hdpdb() {
  } ->
  exec {
   'run_configure_hdp_db_script':
-  command => "/bin/bash /tmp/configure_hdp_db_script.sh",
+  command => "/bin/bash /var/lib/puuppet-ambari/configure_hdp_db_script.sh",
   refreshonly => true
  }
 
