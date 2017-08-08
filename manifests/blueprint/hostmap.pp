@@ -11,7 +11,7 @@ class ambari::blueprint::hostmap() {
    'hostmapping_file':
    ensure => 'file',
    content => template("ambari/blueprint/$hostmap_config"),
-   path => '/var/lib/puuppet-ambari/hostmap.json',
+   path => '/var/lib/puppet-ambari/hostmap.json',
    owner => 'root',
    group => 'root',
    mode  => '0700',
@@ -19,7 +19,7 @@ class ambari::blueprint::hostmap() {
  } ->
  exec {
   'run_hostmap_blueprint':
-  command => "/bin/env curl -f -H 'X-Requested-By: ambari' -X POST -u admin:admin $url -d @/var/lib/puuppet-ambari/hostmap.json",
+  command => "/bin/env curl -f -H 'X-Requested-By: ambari' -X POST -u admin:admin $url -d @/var/lib/puppet-ambari/hostmap.json",
   refreshonly => true
  }
 

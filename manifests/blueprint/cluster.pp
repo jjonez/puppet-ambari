@@ -13,7 +13,7 @@ class ambari::blueprint::cluster() {
    'cluster_config_file':
    ensure => 'file',
    content => template("ambari/blueprint/$cluster_config"),
-   path => '/var/lib/puuppet-ambari/cluster_config.json',
+   path => '/var/lib/puppet-ambari/cluster_config.json',
    owner => 'root',
    group => 'root',
    mode  => '0700',
@@ -21,7 +21,7 @@ class ambari::blueprint::cluster() {
  } -> 
  exec {
   'run_cluster_blueprint':
-  command => "/bin/env curl -f -H 'X-Requested-By: ambari' -X POST -u admin:admin $url -d @/var/lib/puuppet-ambari/cluster_config.json",
+  command => "/bin/env curl -f -H 'X-Requested-By: ambari' -X POST -u admin:admin $url -d @/var/lib/puppet-ambari/cluster_config.json",
   refreshonly => true
  }
 

@@ -1,7 +1,7 @@
 class ambari::prep { 
  
   # working directory
-  file { '/var/lib/puuppet-ambari':
+  file { '/var/lib/puppet-ambari':
     ensure => 'directory',
     owner  => 'root',
     group  => 'root',
