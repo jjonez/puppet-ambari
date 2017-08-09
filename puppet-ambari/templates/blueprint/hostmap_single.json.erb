@@ -1,11 +1,12 @@
 {
     "blueprint": "<%= @cluster_name %>",
     "default_password": "admin",
+    "provision_action" : "INSTALL_ONLY",
     "host_groups": [
         {
             "hosts": [
                 {
-                    "fqdn": "puppetclient1.my.local"
+                    "fqdn": "puppetclient.puppet.local"
                 }
             ],
             "name": "master_nodes"

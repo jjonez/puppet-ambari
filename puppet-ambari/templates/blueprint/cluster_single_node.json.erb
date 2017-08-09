@@ -28,5 +28,26 @@
             ],
             "name": "master_nodes"
         }
-    ]
+    ],
+    "settings" : [
+        {
+            "deployment_settings": [
+                {"skip_failure":"true"}
+            ],
+            "repository_settings": [
+                {
+                    "override_strategy":"ALWAYS_APPLY",
+                    "operating_system":"redhat7",
+                    "repo_id":"HDP",
+                    "base_url":"http://public-repo-1.hortonworks.com/HDP/centos7/2.x/updates/2.6.0.3"
+                },
+                {
+                    "override_strategy":"ALWAYS_APPLY",
+                    "operating_system":"redhat7",
+                    "repo_id":"HDP-UTIL-1.1",
+                    "base_url":"http://public-repo-1.hortonworks.com/HDP-UTILS-1.1.0.21/repos/centos7"
+                }
+            ]
+        } 
+    ] 
 }
