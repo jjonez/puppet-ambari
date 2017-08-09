@@ -1,0 +1,6 @@
+{
+ "Repositories" : {
+   "base_url" : "<%= @hdp_repo_url %>",
+   "verify_base_url" : true
+ }
+}
