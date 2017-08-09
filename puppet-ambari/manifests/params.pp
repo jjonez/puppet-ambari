@@ -1,12 +1,13 @@
 class ambari::params {
  
   # Ambari Server Params
-  $ambari_server 		= 'puppetmaster.puppet.local'
+  $ambari_server 		= 'puppetclient1.my.local'
   $ambari_server_port 		= 8080
   $ambari_comm_port 		= 8440
   $ambari_comm_secure_port 	= 8441  # for future use
+  $num_ambari_agents            = 1     # to verify that all have registered with the server
 
-  $hdp_stack_version            = '2.6.1'
+  $hdp_stack_version            = '2.6'
 
   $ambari_user                  = 'ambari'  
   $hadoop_group                 = 'hadoop'  # Ignored if $ambari_user is 'root'
