@@ -7,10 +7,6 @@ class ambari::repo(
 )inherits ::ambari::params {
 
   contain ambari::repo::ambari
-  contain ambari::repo::hdp
-
-  Class[ambari::repo::ambari] ->
-  Class[ambari::repo::hdp]
 
 }
 
