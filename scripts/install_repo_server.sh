@@ -7,18 +7,18 @@ RPMDIR=$INSTDIR/packages/nginx-rpms
 TEMPLATES=$INSTDIR/templates
 
 function error() {
-  echo "ERROR: $1"
+  echo -e "ERROR: $1"
   exit 254
 }
 
 
 function usage() {
-  [ "$1" != "" ] && echo "$1"
+  [ "$1" != "" ] && echo -e "$1"
   echo $1
-  echo "usage: `basename $0` <action> [doc_root]"
+  echo "usage: `basename $0` <action>"
   echo "Installs nginx and configure it for serving files. Must be run as root."
   echo "This requirees that port 80 be open for http and DNS is configured."
-  echo "You should set the REPO_DOC_ROOT in $config_file. "
+  echo "You should set the REPO_DOC_ROOT in install.conf. "
   echo "  REPO_DOC_ROOT is the directory where files will be located."
   echo    "Default is /var/www/html/repos"
   echo "OPTIONS:"

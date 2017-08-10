@@ -8,15 +8,12 @@ PUPCMD="/opt/puppetlabs/bin/puppet"
 TARGET_ENV=production
 
 function error() {
-  echo "ERROR: $1"
+  echo -e "ERROR: $1"
   exit 254
 }
 
-function usage() {
-  [ "$1" != "" ] && echo "$1"
-}
 
-[ ! -d $PMODS ] && error "Source puppet modules directory does not exist: $PMODS"
+[ ! -d $PMODS ] &&  error "Source puppet modules directory does not exist: $PMODS"
 [ ! -f $PUPCMD ] && error "Puppet command does not exist on this machine: $PUPCMD"
 
 

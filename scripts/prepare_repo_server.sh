@@ -9,12 +9,12 @@ CONFIG=$INSTDIR/templates
 TARBALLS=$INSTDIR/tarballs
 
 function error() {
-  echo "ERROR: $1"
+  echo -e "ERROR: $1"
   exit 254
 }
 
 function usage() {
-  [ "$1" != "" ] && echo "$1"
+  [ "$1" != "" ] && echo -e "$1"
   echo "usage: `basename $0` <action> [doc_root]"
   echo " Prepares the REPO_DOC_ROOT folder. ($REPO_DOC_ROOT)."
   echo " You should set the REPO_DOC_ROOT in $config_file. "
@@ -26,16 +26,18 @@ function usage() {
 
 
 
+[ "$1" != "install" ] && usage ""
 [ "$REPO_DOC_ROOT" = "" ] && usage "REPO_DOC_ROOT is not set in the install.conf file"
 [ "$INSTDIR" = "" ] && error "INSTDIR is not set in the install.conf file"
 [ ! -d $TARBALLS ] && error "INSTDIR is not valid in the install.conf file"
-[ "$1" != "install" ] && usage ""
+[ ! -d $REPO_DOC_ROOT ] && error "The repo doc root does not exist: $REPO_DOC_ROOT.\Please ensure that the repo server is configured."
 
 
 # OTHERS
+mkdir -p $REPO_DOC_ROOT/rpms
 for i in $TARBALLS/asis/*;do
    echo " ------ copying $i --------"
-   cp -p $i $REPO_DOC_ROOT
+   cp -p $i $REPO_DOC_ROOT/rpms
 done
 
 
