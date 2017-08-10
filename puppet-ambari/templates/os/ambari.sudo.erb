@@ -26,4 +26,5 @@ Defaults: <%= @ambari_user %> !requiretty
 # Ambari Infra and LogSearch Commands
 <%= @ambari_user %> ALL=(ALL) NOPASSWD:SETENV: /usr/lib/ambari-infra-solr/bin/solr *, /usr/lib/ambari-logsearch-logfeeder/run.sh *, /usr/sbin/ambari-metrics-grafana *, /usr/lib/ambari-infra-solr-client/solrCloudCli.sh *
 
-
+# Ambari: Elastic Search Commands
+<%= @ambari_user %> ALL=(ALL) NOPASSWD:SETENV: /sbin/service elasticsearch *, /bin/systemctl * elasticsearch
