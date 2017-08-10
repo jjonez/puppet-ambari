@@ -1,0 +1,29 @@
+{
+    "blueprint": "<%= @cluster_name %>",
+    "default_password": "admin",
+    "provision_action" : "INSTALL_ONLY",
+    "host_groups": [
+        <% @master_nodes.each_with_index do |host, i| -%>
+        {
+            "hosts": [
+                {
+                    "fqdn": "<%= host %>"
+                }
+            ],
+            "name": "master_node_<%= (i + 1) %>"
+        }<%= ',' if i < (@master_nodes.size - 1) %>       
+        <% end -%>
+        <%= ',' if @worker_nodes.size > 0 %>
+        {
+            "hosts": [
+                <% @worker_nodes.each_with_index do |host, i| -%>
+                {
+                    "fqdn": "<%= host %>"
+                }<%= ',' if i < (@worker_nodes.size - 1) %>     
+                <% end -%>
+            ],
+            "name": "worker_nodes"
+        }
+        
+    ]
+}

@@ -6,8 +6,6 @@ class ambari::repo(
 
   contain ambari::repo::ambari
 
-#  Class[ambari::repo::ambari]
-
 }
 
 

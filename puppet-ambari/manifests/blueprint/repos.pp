@@ -13,7 +13,7 @@ class ambari::blueprint::repos() {
  file {
    'hdp_repo_file':
    ensure => 'file',
-   content => template("ambari/blueprint/hdp_repo.json"),
+   content => template("ambari/blueprint/hdp_repo.json.erb"),
    path => '/var/lib/puppet-ambari/hdp_repo.json',
    owner => 'root',
    group => 'root',
@@ -29,7 +29,7 @@ class ambari::blueprint::repos() {
  file {
    'hdp_utils_repo_file':
    ensure => 'file',
-   content => template("ambari/blueprint/hdp_utils_repo.json"),
+   content => template("ambari/blueprint/hdp_utils_repo.json.erb"),
    path => '/var/lib/puppet-ambari/hdp_utils_repo.json',
    owner => 'root',
    group => 'root',

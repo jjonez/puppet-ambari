@@ -1,0 +1,287 @@
+{
+    "Blueprints": {
+        "blueprint_name": "hdp1",
+        "stack_name": "HDP",
+        "stack_version": "<%= @hdp_stack_version %>"
+    },
+
+    "configurations": [
+    { 
+      "core-site": {
+        "properties" : {
+          "fs.defaultFS" : "hdfs://<%= @hdp_hdfs_nameservice_id %>",
+          "ha.zookeeper.quorum" : "%HOSTGROUP::master_node_1%:2181,%HOSTGROUP::master_node_2%:2181,%HOSTGROUP::master_node_3%:2181"
+        }
+      }
+    },
+    { 
+      "hdfs-site": {
+        "properties" : {
+          "dfs.client.failover.proxy.provider.<%= @hdp_hdfs_nameservice_id %>" : "org.apache.hadoop.hdfs.server.namenode.ha.ConfiguredFailoverProxyProvider",
+          "dfs.ha.automatic-failover.enabled" : "true",
+          "dfs.ha.fencing.methods" : "shell(/bin/true)",
+          "dfs.ha.namenodes.<%= @hdp_hdfs_nameservice_id %>" : "nn1,nn2",
+          "dfs.namenode.http-address" : "%HOSTGROUP::master_node_1%:50070",
+          "dfs.namenode.http-address.<%= @hdp_hdfs_nameservice_id %>.nn1" : "%HOSTGROUP::master_node_1%:50070",
+          "dfs.namenode.http-address.<%= @hdp_hdfs_nameservice_id %>.nn2" : "%HOSTGROUP::master_node_2%:50070",
+          "dfs.namenode.https-address" : "%HOSTGROUP::master_node_1%:50470",
+          "dfs.namenode.https-address.<%= @hdp_hdfs_nameservice_id %>.nn1" : "%HOSTGROUP::master_node_1%:50470",
+          "dfs.namenode.https-address.<%= @hdp_hdfs_nameservice_id %>.nn2" : "%HOSTGROUP::master_node_2%:50470",
+          "dfs.namenode.rpc-address.<%= @hdp_hdfs_nameservice_id %>.nn1" : "%HOSTGROUP::master_node_1%:8020",
+          "dfs.namenode.rpc-address.<%= @hdp_hdfs_nameservice_id %>.nn2" : "%HOSTGROUP::master_node_2%:8020",
+          "dfs.namenode.shared.edits.dir" : "qjournal://%HOSTGROUP::master_node_1%:8485;%HOSTGROUP::master_node_2%:8485;%HOSTGROUP::master_node_3%:8485/<%= @hdp_hdfs_nameservice_id %>",
+          "dfs.nameservices" : "<%= @hdp_hdfs_nameservice_id %>"
+        }
+      }
+    },
+    {
+      "yarn-site" : {
+        "properties" : {
+          "hadoop.registry.rm.enabled" : "false",
+          "hadoop.registry.zk.quorum" : "%HOSTGROUP::master_node_3%:2181,%HOSTGROUP::master_node_2%:2181,%HOSTGROUP::master_node_1%:2181",
+          "yarn.log.server.url" : "http://%HOSTGROUP::master_node_2%:19888/jobhistory/logs",
+          "yarn.resourcemanager.address" : "%HOSTGROUP::master_node_2%:8050",
+          "yarn.resourcemanager.admin.address" : "%HOSTGROUP::master_node_2%:8141",
+          "yarn.resourcemanager.cluster-id" : "yarn-cluster",
+          "yarn.resourcemanager.ha.automatic-failover.zk-base-path" : "/yarn-leader-election",
+          "yarn.resourcemanager.ha.enabled" : "true",
+          "yarn.resourcemanager.ha.rm-ids" : "rm1,rm2",
+          "yarn.resourcemanager.hostname" : "%HOSTGROUP::master_node_2%",
+          "yarn.resourcemanager.recovery.enabled" : "true",
+          "yarn.resourcemanager.resource-tracker.address" : "%HOSTGROUP::master_node_2%:8025",
+          "yarn.resourcemanager.scheduler.address" : "%HOSTGROUP::master_node_2%:8030",
+          "yarn.resourcemanager.store.class" : "org.apache.hadoop.yarn.server.resourcemanager.recovery.ZKRMStateStore",
+          "yarn.resourcemanager.webapp.address" : "%HOSTGROUP::master_node_2%:8088",
+          "yarn.resourcemanager.webapp.https.address" : "%HOSTGROUP::master_node_2%:8090",
+          "yarn.timeline-service.address" : "%HOSTGROUP::master_node_2%:10200",
+          "yarn.timeline-service.webapp.address" : "%HOSTGROUP::master_node_2%:8188",
+          "yarn.timeline-service.webapp.https.address" : "%HOSTGROUP::master_node_2%:8190",
+          "yarn.resourcemanager.hostname.rm1" : "%HOSTGROUP::master_node_2%",
+          "yarn.resourcemanager.hostname.rm2" : "%HOSTGROUP::master_node_3%",
+          "yarn.resourcemanager.webapp.address.rm1" : "%HOSTGROUP::master_node_2%:8088",
+          "yarn.resourcemanager.webapp.address.rm2" : "%HOSTGROUP::master_node_3%:8088"
+        }
+      }
+    },
+    {
+      "accumulo-site" : {
+        "properties_attributes" : { },
+        "properties" : {
+          "instance.volumes" : "hdfs://<%= @hdp_hdfs_nameservice_id %>/apps/accumulo/data"
+        }
+      }
+    }
+  ],
+  "host_groups": [
+    {
+      "name": "master_node_1",
+      "configurations": [],
+      "components": [
+        {
+          "name": "ZOOKEEPER_SERVER"
+        },
+        {
+          "name": "HISTORYSERVER"
+        },
+        {
+          "name": "NAMENODE"
+        },
+        {
+          "name": "ZKFC"
+        },
+        {
+          "name": "JOURNALNODE"
+        },
+        {
+          "name": "HDFS_CLIENT"
+        },
+        {
+          "name": "YARN_CLIENT"
+        },
+        {
+          "name": "METRICS_MONITOR"
+        },
+        {
+          "name": "MAPREDUCE2_CLIENT"
+        },
+        {
+          "name" : "ACCUMULO_MONITOR"
+        },
+        {
+          "name" : "ACCUMULO_TRACER"
+        },
+        {
+          "name" : "ACCUMULO_GC"
+        },
+        {
+          "name" : "ACCUMULO_MASTER"
+        }
+      ],
+      "cardinality": "1"
+    },
+    {
+      "name": "master_node_2",
+      "configurations": [],
+      "components": [
+        {
+          "name": "ZOOKEEPER_SERVER"
+        },
+        {
+          "name": "PIG"
+        },
+        {
+          "name": "ZOOKEEPER_CLIENT"
+        },
+        {
+          "name": "METRICS_MONITOR"
+        },
+        {
+          "name": "TEZ_CLIENT"
+        },
+        {
+          "name": "HDFS_CLIENT"
+        },
+        {
+          "name": "YARN_CLIENT"
+        },
+        {
+          "name": "MAPREDUCE2_CLIENT"
+        },
+        {
+          "name": "RESOURCEMANAGER"
+        },
+        {
+          "name": "NAMENODE"
+        },
+        {
+          "name": "ZKFC"
+        },
+        {
+          "name": "JOURNALNODE"
+        },
+        {
+          "name": "SUPERVISOR"
+        },
+        {
+          "name": "STORM_UI_SERVER"
+        },
+        {
+          "name": "NIMBUS"
+        },
+        {
+          "name": "DRPC_SERVER"
+        }
+      ],
+      "cardinality": "1"
+    },
+    {
+      "name": "master_node_3",
+      "configurations": [],
+      "components": [
+        {
+          "name": "ZOOKEEPER_SERVER"
+        },
+        {
+          "name": "APP_TIMELINE_SERVER"
+        },
+        {
+          "name": "TEZ_CLIENT"
+        },
+        {
+          "name": "HDFS_CLIENT"
+        },
+        {
+          "name": "METRICS_MONITOR"
+        },
+        {
+          "name": "JOURNALNODE"
+        },
+        {
+          "name": "RESOURCEMANAGER"
+        },
+        {
+          "name": "FLUME_HANDLER"
+        },
+        {
+          "name": "KAFKA_BROKER"
+        },
+        {
+          "name": "SPARK_JOBHISTORYSERVER"
+        }
+      ],
+      "cardinality": "1"
+    },    
+    {
+      "name": "worker_nodes",
+      "configurations": [],
+      "components": [
+        {
+          "name": "NODEMANAGER"
+        },
+        {
+          "name": "METRICS_MONITOR"
+        },
+        {
+          "name": "DATANODE"
+        },
+        {
+          "name" : "ACCUMULO_TSERVER"
+        },
+        {
+          "name": "ZOOKEEPER_CLIENT"
+        },
+        {
+          "name": "PIG"
+        },
+        {
+          "name": "METRICS_MONITOR"
+        },
+        {
+          "name": "TEZ_CLIENT"
+        },
+        {
+          "name": "SLIDER"
+        },
+        {
+          "name": "HDFS_CLIENT"
+        },
+        {
+          "name": "YARN_CLIENT"
+        },
+        {
+          "name": "METRICS_COLLECTOR"
+        },
+        {
+          "name": "MAPREDUCE2_CLIENT"
+        },
+        {
+          "name" : "ACCUMULO_CLIENT"
+        }
+      ],
+      "cardinality": "<%= @worker_nodes.size %>" 
+    }
+  ],
+    "settings" : [
+      {
+        "deployment_settings": [
+            {"skip_failure":"true"}
+        ],
+        "repository_settings":[
+            {
+                "override_strategy":"ALWAYS_APPLY",
+                "operating_system":"redhat7",
+                "repo_id":"HDP",
+                "base_url":"http://public-repo-1.hortonworks.com/HDP/centos7/2.x/updates/2.6.0.3"
+            },
+            {
+                "override_strategy":"ALWAYS_APPLY",
+                "operating_system":"redhat7",
+                "repo_id":"HDP-UTIL-1.1",
+                "base_url":"http://public-repo-1.hortonworks.com/HDP-UTILS-1.1.0.21/repos/centos7"
+            }
+        ]
+    
+      }
+    ]
+    
+}
