@@ -1,0 +1,3 @@
+# package libtirpc-devel is required on RHEL7 for HDP install of hadoop client
+libtirpc-0.2.4-0.8.el7_3.x86_64.rpm
+libtirpc-devel-0.2.4-0.8.el7_3.x86_64.rpm
