@@ -1,10 +1,17 @@
 class ambari::params {
  
   # Ambari Server Params
-  $ambari_server 		= 'master1.puppet.local'
-  $master_nodes     = ['master1.puppet.local', 'master2.puppet.local', 'master3.puppet.local']
-  $worker_nodes     = ['worker1.puppet.local', 'worker2.puppet.local']
-  $elastic_nodes     = ['elastic.puppet.local']
+  $ambari_server                = 'ip-172-31-45-96.us-east-2.compute.internal'
+$master_nodes     = [
+        'ip-172-31-45-96.us-east-2.compute.internal',
+        'ip-172-31-39-26.us-east-2.compute.internal',
+        'ip-172-31-38-9.us-east-2.compute.internal',
+        ]
+$worker_nodes     = [
+        'ip-172-31-36-28.us-east-2.compute.internal',
+        'ip-172-31-43-59.us-east-2.compute.internal',
+        'ip-172-31-36-69.us-east-2.compute.internal']
+  $elastic_nodes     = 'ip-172-31-46-67.us-east-2.compute.internal'
 
   $ambari_server_port 		= 8080
   $ambari_comm_port 		= 8440
