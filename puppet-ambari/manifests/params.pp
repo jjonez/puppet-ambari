@@ -2,6 +2,8 @@ class ambari::params {
  
   # Ambari Server Params
   $ambari_server 		= 'master1.puppet.local'
+  $master_nodes     = ['master1.puppet.local', 'master2.puppet.local', 'master3.puppet.local']
+  $worker_nodes     = ['worker1.puppet.local', 'worker2.puppet.local']
 
   $ambari_server_port 		= 8080
   $ambari_comm_port 		= 8440
@@ -28,9 +30,6 @@ class ambari::params {
   
   $cluster_config 	= 'cluster_full_stack.json.erb'
   $hostmap_config 	= 'hostmap_full_stack.json.erb'
-
-  $master_nodes = ['master1.puppet.local', 'master2.puppet.local', 'master3.puppet.local']
-  $worker_nodes = ['worker1.puppet.local', 'worker2.puppet.local']
 
   $num_datanodes 		= $master_nodes.size + $worker_nodes.size
 
