@@ -14,15 +14,16 @@
         }<%= ',' if i < (@master_nodes.size - 1) %>       
         <% end -%>
         <%= ',' if @worker_nodes.size > 0 %>
-        <% @worker_nodes.each_with_index do |host, i| -%>
         {
             "hosts": [
+                <% @worker_nodes.each_with_index do |host, i| -%>
                 {
-                    "fqdn": "<%= host %> "
-                }
+                    "fqdn": "<%= host %>"
+                }<%= ',' if i < (@worker_nodes.size - 1) %>     
+                <% end -%>
             ],
             "name": "worker_nodes"
-        }<%= ',' if i < (@worker_nodes.size - 1) %>     
-        <% end -%>
+        }
+        
     ]
 }

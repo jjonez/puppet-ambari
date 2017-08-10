@@ -1,11 +1,8 @@
 class ambari::params {
  
   # Ambari Server Params
-<<<<<<< HEAD
   $ambari_server 		= 'master1.puppet.local'
-=======
-  $ambari_server 		= 'puppetclient1.my.local'
->>>>>>> 5904493530f370d9f4534608810470253379865e
+
   $ambari_server_port 		= 8080
   $ambari_comm_port 		= 8440
   $ambari_comm_secure_port 	= 8441  # for future use
@@ -26,20 +23,21 @@ class ambari::params {
   $java_home 			= '/usr/lib/jvm/java-1.8.0-openjdk'
 
   # Blueprint params 
-  $num_datanodes 		= 1 
+  
   $cluster_name  		= 'hdp1'  # recommended to use all lowercase, only letters and numbers
-
   
   $cluster_config 	= 'cluster_full_stack.json.erb'
   $hostmap_config 	= 'hostmap_full_stack.json.erb'
+
+  $master_nodes = ['master1.puppet.local', 'master2.puppet.local', 'master3.puppet.local']
+  $worker_nodes = ['worker1.puppet.local', 'worker2.puppet.local']
+
+  $num_datanodes 		= $master_nodes.size + $worker_nodes.size
 
   #if $num_datanodes = 1
   #  $cluster_config = 'cluster_single_node.json.erb'
   #  $hostmap_config = 'hostmap_single_stack.json.erb'
   #end
-
-  $master_nodes = ['puppetclient.puppet.local', 'puppetclient1.puppet.local']
-  $worker_nodes = ['puppetclientworkder.puppet.local']
 
   $hdp_hdfs_nameservice_id  = 'mycluster'
 

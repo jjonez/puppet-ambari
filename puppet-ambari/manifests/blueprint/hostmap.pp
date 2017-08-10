@@ -17,13 +17,12 @@ class ambari::blueprint::hostmap() {
    owner => 'root',
    group => 'root',
    mode  => '0700',
-   #notify => Exec['run_hostmap_blueprint'],
- } 
- #->
- #exec {
- # 'run_hostmap_blueprint':
- # command => "/bin/env curl -f -H 'X-Requested-By: ambari' -X POST -u admin:admin $url -d @/var/lib/puppet-ambari/hostmap.json",
- # refreshonly => true
- #}
+   notify => Exec['run_hostmap_blueprint'],
+ } ->
+ exec {
+  'run_hostmap_blueprint':
+  command => "/bin/env curl -f -H 'X-Requested-By: ambari' -X POST -u admin:admin $url -d @/var/lib/puppet-ambari/hostmap.json",
+  refreshonly => true
+ }
 
 }

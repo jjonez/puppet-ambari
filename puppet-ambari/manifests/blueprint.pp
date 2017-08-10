@@ -17,12 +17,12 @@ class ambari::blueprint(
 )inherits ::ambari::params {
 
   contain ambari::blueprint::repos
-  contain ambari::blueprint::wait_for_agents
+  #contain ambari::blueprint::wait_for_agents
   contain ambari::blueprint::cluster
   contain ambari::blueprint::hostmap
 
   Class[::ambari::blueprint::repos] ->
-  Class[::ambari::blueprint::wait_for_agents] ->
+  #Class[::ambari::blueprint::wait_for_agents] ->
   Class[::ambari::blueprint::cluster] ->
   Class[::ambari::blueprint::hostmap]
 

@@ -19,13 +19,12 @@ class ambari::blueprint::cluster() {
    owner => 'root',
    group => 'root',
    mode  => '0700',
-   #notify => Exec['run_cluster_blueprint'],
- } 
- #-> 
- #exec {
- # 'run_cluster_blueprint':
- # command => "/bin/env curl -f -H 'X-Requested-By: ambari' -X POST -u admin:admin $url -d @/var/lib/puppet-ambari/cluster_config.json",
- # refreshonly => true
- #}
+   notify => Exec['run_cluster_blueprint'],
+ } -> 
+ exec {
+  'run_cluster_blueprint':
+  command => "/bin/env curl -f -H 'X-Requested-By: ambari' -X POST -u admin:admin $url -d @/var/lib/puppet-ambari/cluster_config.json",
+  refreshonly => true
+ }
 
 }
