@@ -170,6 +170,9 @@
         },
         {
           "name": "DRPC_SERVER"
+        },
+        {
+          "name": "METRICS_COLLECTOR"
         }
       ],
       "cardinality": "1"
@@ -249,7 +252,7 @@
           "name": "YARN_CLIENT"
         },
         {
-          "name": "METRICS_COLLECTOR"
+          "name": "METRICS_MONITOR"
         },
         {
           "name": "MAPREDUCE2_CLIENT"
@@ -259,6 +262,19 @@
         }
       ],
       "cardinality": "<%= @worker_nodes.size %>" 
+    },
+    {
+      "name": "elasitc_node",
+      "configurations": [],
+      "components": [
+        {
+          "name": "METRICS_MONITOR"
+        },
+        {
+          "name" : "ES_MASTER"
+        }
+      ],
+      "cardinality": "1" 
     }
   ],
     "settings" : [

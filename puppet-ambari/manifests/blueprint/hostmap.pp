@@ -6,6 +6,7 @@ class ambari::blueprint::hostmap() {
  $hostmap_config     = $::ambari::blueprint::hostmap_config
  $master_nodes       = $::ambari::blueprint::master_nodes
  $worker_nodes       = $::ambari::blueprint::worker_nodes
+ $elastic_nodes       = $::ambari::blueprint::elastic_nodes
 
  $url = "http://${ambari_server}:${ambari_server_port}/api/v1/clusters/${cluster_name}"
 

@@ -12,7 +12,8 @@ class ambari::blueprint(
   $hostmap_config     	     = $::ambari::params::hostmap_config,
   $master_nodes              = $::ambari::params::master_nodes,
   $worker_nodes              = $::ambari::params::worker_nodes,
-  $hdp_hdfs_nameservice_id   = $::ambari::params::hdp_hdfs_nameservice_id
+  $hdp_hdfs_nameservice_id   = $::ambari::params::hdp_hdfs_nameservice_id,
+  $elastic_nodes             = $::ambari::params::elastic_nodes
 
 )inherits ::ambari::params {
 
