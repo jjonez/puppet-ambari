@@ -4,6 +4,7 @@ class ambari::params {
   $ambari_server 		= 'master1.puppet.local'
   $master_nodes     = ['master1.puppet.local', 'master2.puppet.local', 'master3.puppet.local']
   $worker_nodes     = ['worker1.puppet.local', 'worker2.puppet.local']
+  $elastic_nodes     = ['elastic.puppet.local']
 
   $ambari_server_port 		= 8080
   $ambari_comm_port 		= 8440
