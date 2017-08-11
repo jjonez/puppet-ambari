@@ -1,0 +1,15 @@
+cyrus-sasl-lib-2.1.26-20.el7_2.x86_64.rpm
+glibc-2.17-157.el7_3.5.x86_64.rpm
+glibc-common-2.17-157.el7_3.5.x86_64.rpm
+libgcc-4.8.5-11.el7.x86_64.rpm
+libstdc++-4.8.5-11.el7.x86_64.rpm
+nspr-4.13.1-1.0.el7_3.x86_64.rpm
+nss-3.28.4-1.2.el7_3.x86_64.rpm
+nss-softokn-3.16.2.3-14.4.el7.x86_64.rpm
+nss-softokn-freebl-3.16.2.3-14.4.el7.x86_64.rpm
+nss-sysinit-3.28.4-1.2.el7_3.x86_64.rpm
+nss-tools-3.28.4-1.2.el7_3.x86_64.rpm
+nss-util-3.28.4-1.0.el7_3.x86_64.rpm
+openldap-2.4.40-13.el7.x86_64.rpm
+openlldap-rpm-list.txt
+zlib-1.2.7-17.el7.x86_64.rpm

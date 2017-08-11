@@ -2,17 +2,21 @@
 
 
 retval=
+verbose=0
 
 function usage() {
   [ "$1" != "" ] && echo -e "$1"
-  echo "usage: `basename $0` <config_file>"
+  echo "usage: `basename $0` <config_file> [options]"
   echo " Prepares the REPO_DOC_ROOT folder. ($REPO_DOC_ROOT)."
   echo " REPO_DOC_ROOT is set in config_file. "
   echo " REPO_DOC_ROOT is the directory where repo files will be located."
-  echo "Options:"
-  echo "  config_file   -  see install.conf for an example"
+  echo "Arguments:"
+  echo "  config_file   - (rquired) see install.conf for an example"
+  echo "  -s skip_opt   - skip_opt can be ambari|hdp|hdp-utils" 
+  echo "                  multiple skips can be space delimited"
   exit 254
 }
+
 
 function error() {
   echo -e "ERROR: $1"
@@ -22,18 +26,27 @@ function error() {
 #### SETUP ####
 
 config_file=$1
-[ $# -ne 1 ] && usage "Missing required config file." 
-[ ! -f $1 ] && usage "Config file does not exist: $config_file"
+[ $# -lt 1 ] && usage "Missing required config file." 
+[ ! -f $config_file ] && usage "Config file does not exist: $config_file"
 
 # Set values from the config file
 source $config_file
-
 
 
 [ "$REPO_DOC_ROOT" = "" ] && usage "REPO_DOC_ROOT is not set in the install.conf file"
 [ "$INSTDIR" = "" ] && error "INSTDIR is not set in the install.conf file"
 [ ! -d $REPO_DOC_ROOT ] && error "The repo doc root does not exist: $REPO_DOC_ROOT.\Please ensure that the repo server is configured."
 
+
+shift
+while getopts "s:" opt; do
+  case $opt in
+    s) skip_opt+=" $OPTARG ";;
+    v) verbose=1;;
+    *) usage "Invalid option";;
+
+  esac
+done
 
 
 ######## FUNCTIONS ##########
@@ -69,9 +82,9 @@ CREATEREPO_DIR=$INSTDIR/repo_files/packages/createrepo
 RPMS_DIR=$INSTDIR/repo_files/rpms
 RPMS_DL_DIR=$INSTDIR/repo_files/dl/rpms
 FILES_DL_DIR=$INSTDIR/repo_files/dl/files
-HDP_DIR=$INSTDIR/repo_files/dl/HDP
-AMBARI_DIR=$INSTDIR/repo_files/dl/AMBARI
-HDP_UTILS_DIR=$INSTDIR/repo_files/dl/HDP-UTILS
+HDP_DIR=$INSTDIR/repo_files/dl/hdp/HDP
+AMBARI_DIR=$INSTDIR/repo_files/dl/hdp/AMBARI
+HDP_UTILS_DIR=$INSTDIR/repo_files/dl/hdp/HDP-UTILS
 
 
 # prepare
@@ -86,35 +99,35 @@ HDP_UTILS_DIR=$INSTDIR/repo_files/dl/HDP-UTILS
 # RPMS DL
   echo " -- creating yum repo from dl-rpms"
   echo "Copying repo files (this may take a minute)...."
-  cp -pr $RPMS_DL_DIR $yum_root
+  cp -pr $RPMS_DL_DIR/* $yum_root
 
 # RPMS nginx
   echo " -- creating yum repo from nginx-rpms"
   echo "Copying repo files (this may take a minute)...."
-  cp -pr $NGINX_DIR $yum_root
+  cp -pr $NGINX_DIR/* $yum_root
 
 # RPMS nginx
   echo " -- creating yum repo from createrepo-rpms"
   echo "Copying repo files (this may take a minute)...."
-  cp -pr $CREATEREPO_DIR $yum_root
+  cp -pr $CREATEREPO_DIR/* $yum_root
 
 
 createrepo $yum_root
 urls_out+="\nRPMs  http://${HOSTNAME}/rpms/centos7"
 
 
-
 # FILES
 echo " -- creating files repo"
 echo "Copying repo files (this may take a minute)...."
-cp -pr $FILES_DIR/files $REPO_DOC_ROOT
+[ $verbose -ne 0 ] && echo "cp -pr $FILES_DL_DIR $REPO_DOC_ROOT"
+cp -pr $FILES_DL_DIR $REPO_DOC_ROOT
 urls_out+="\nFiles http://${HOSTNAME}/files"
 
 
 # HORTONWORKS REPOS
-prepare_repos "$HDP_DIR/*"  "HDP/centos7"
-prepare_repos "$AMBARI_DIR/*"  "ambari/centos7"
-prepare_repos "$HDP_UTILS_DIR/*"  ""
+[[ "$skip_opt" != *"hdp"* ]] &&        prepare_repos "$HDP_DIR/*"  "HDP/centos7"
+[[ "$skip_opt" != *"ambari"* ]] &&     prepare_repos "$AMBARI_DIR/*"  "ambari/centos7"
+[[ "$skip_opt" != *"hdp-utils"* ]] &&  prepare_repos "$HDP_UTILS_DIR/*"  ""
 
 
 echo " -------------------------"
