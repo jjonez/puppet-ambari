@@ -8,7 +8,8 @@ class ambari::blueprint::cluster() {
  $cluster_config          = $::ambari::blueprint::cluster_config
  $hdp_hdfs_nameservice_id = $::ambari::blueprint::hdp_hdfs_nameservice_id
  $worker_nodes            = $::ambari::blueprint::worker_nodes
- $elastic_nodes            = $::ambari::blueprint::elastic_nodes
+ $elastic_nodes           = $::ambari::blueprint::elastic_nodes
+ $blueprint_configs       = $::ambari::blueprint::blueprint_configs
 
  $url = "http://${ambari_server}:${ambari_server_port}/api/v1/blueprints/${cluster_name}" 
 
@@ -20,7 +21,7 @@ class ambari::blueprint::cluster() {
    owner => 'root',
    group => 'root',
    mode  => '0700',
-   notify => Exec['run_cluster_blueprint'],
+   #notify => Exec['run_cluster_blueprint'],
  } -> 
  exec {
   'run_cluster_blueprint':

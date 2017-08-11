@@ -17,6 +17,9 @@
     { 
       "hdfs-site": {
         "properties" : {
+          <% @blueprint_configs["hdfs_site"].each do |key, value| -%>
+          "<%= key %>" : "<%= value -%>",
+          <% end -%>
           "dfs.client.failover.proxy.provider.<%= @hdp_hdfs_nameservice_id %>" : "org.apache.hadoop.hdfs.server.namenode.ha.ConfiguredFailoverProxyProvider",
           "dfs.ha.automatic-failover.enabled" : "true",
           "dfs.ha.fencing.methods" : "shell(/bin/true)",
@@ -37,6 +40,9 @@
     {
       "yarn-site" : {
         "properties" : {
+          <% @blueprint_configs["yarn_site"].each do |key, value| -%>
+          "<%= key %>" : "<%= value -%>",
+          <% end -%>
           "hadoop.registry.rm.enabled" : "false",
           "hadoop.registry.zk.quorum" : "%HOSTGROUP::master_node_3%:2181,%HOSTGROUP::master_node_2%:2181,%HOSTGROUP::master_node_1%:2181",
           "yarn.log.server.url" : "http://%HOSTGROUP::master_node_2%:19888/jobhistory/logs",
@@ -69,6 +75,15 @@
         "properties" : {
           "instance.volumes" : "hdfs://<%= @hdp_hdfs_nameservice_id %>/apps/accumulo/data"
         }
+      }
+    },
+    {
+      "zoo.cfg" : {
+        "properties" : {
+          <% @blueprint_configs["zoo_cfg"].each do |key, value| -%>
+          "<%= key %>" : "<%= value -%>",
+          <% end -%>
+        }
       }
     }
   ],

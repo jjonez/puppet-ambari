@@ -1,22 +1,36 @@
 class ambari::params {
  
   # Ambari Server Params
-  $ambari_server                = 'ip-172-31-45-96.us-east-2.compute.internal'
-$master_nodes     = [
+  $ambari_server    = 'ip-172-31-45-96.us-east-2.compute.internal'
+  $master_nodes     = [
         'ip-172-31-45-96.us-east-2.compute.internal',
         'ip-172-31-39-26.us-east-2.compute.internal',
         'ip-172-31-38-9.us-east-2.compute.internal',
         ]
-$worker_nodes     = [
+  $worker_nodes     = [
         'ip-172-31-36-28.us-east-2.compute.internal',
         'ip-172-31-43-59.us-east-2.compute.internal',
         'ip-172-31-36-69.us-east-2.compute.internal']
-  $elastic_nodes     = 'ip-172-31-46-67.us-east-2.compute.internal'
+  $elastic_nodes    = 'ip-172-31-46-67.us-east-2.compute.internal'
 
-  $ambari_server_port 		= 8080
-  $ambari_comm_port 		= 8440
+  # Blueprint specific
+  $blueprint_configs = {
+    "hdfs_site" => {
+      "dfs.datanode.data.dir"       =>  "hadoop/hdfs/data" 
+    },
+    "yarn_site" => {
+      "yarn.nodemanager.local-dirs" => "/hadoop/yarn/local"
+      "yarn.nodemanager.log-dirs"   => "/hadoop/yarn/log"
+    },
+    "zoo_cfg" => {
+      "dataDir" => "/hadoop/zookeeper"
+    }
+  }
+
+
+  $ambari_server_port 		  = 8080
+  $ambari_comm_port 		    = 8440
   $ambari_comm_secure_port 	= 8441  # for future use
-  $num_ambari_agents            = 1     # to verify that all have registered with the server
 
   $hdp_stack_version            = '2.6'
 
@@ -33,9 +47,9 @@ $worker_nodes     = [
   $java_home 			= '/usr/lib/jvm/java-1.8.0-openjdk'
 
   # Blueprint params 
-  
+
   $cluster_name  		= 'hdp1'  # recommended to use all lowercase, only letters and numbers
-  
+
   $cluster_config 	= 'cluster_full_stack.json.erb'
   $hostmap_config 	= 'hostmap_full_stack.json.erb'
 

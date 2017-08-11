@@ -4,7 +4,6 @@ class ambari::blueprint(
   $ambari_server_port        = $::ambari::params::ambari_server_port,
   $ambari_comm_port          = $::ambari::params::ambari_comm_port,
   $ambari_comm_secure_port   = $::ambari::params::ambari_comm_secure_port,
-  $num_ambari_agents         = $::ambari::params::num_ambari_agents,
   $hdp_stack_version         = $::ambari::params::hdp_stack_version,
   $num_datanodes 	           = $::ambari::params::num_datanodes,
   $cluster_name  	           = $::ambari::params::cluster_name,
@@ -13,17 +12,16 @@ class ambari::blueprint(
   $master_nodes              = $::ambari::params::master_nodes,
   $worker_nodes              = $::ambari::params::worker_nodes,
   $hdp_hdfs_nameservice_id   = $::ambari::params::hdp_hdfs_nameservice_id,
-  $elastic_nodes             = $::ambari::params::elastic_nodes
+  $elastic_nodes             = $::ambari::params::elastic_nodes,
+  $blueprint_configs         = $::ambari::params::blueprint_configs,
 
 )inherits ::ambari::params {
 
   contain ambari::blueprint::repos
-  #contain ambari::blueprint::wait_for_agents
   contain ambari::blueprint::cluster
   contain ambari::blueprint::hostmap
 
   Class[::ambari::blueprint::repos] ->
-  #Class[::ambari::blueprint::wait_for_agents] ->
   Class[::ambari::blueprint::cluster] ->
   Class[::ambari::blueprint::hostmap]
 

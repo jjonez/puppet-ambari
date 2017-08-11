@@ -18,7 +18,7 @@ class ambari::blueprint::hostmap() {
    owner => 'root',
    group => 'root',
    mode  => '0700',
-   notify => Exec['run_hostmap_blueprint'],
+   #notify => Exec['run_hostmap_blueprint'],
  } ->
  exec {
   'run_hostmap_blueprint':
