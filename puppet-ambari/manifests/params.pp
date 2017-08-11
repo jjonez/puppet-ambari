@@ -16,7 +16,7 @@ class ambari::params {
   # Blueprint specific
   $blueprint_configs = {
     "hdfs_site" => {
-      "dfs.datanode.data.dir"       =>  "hadoop/hdfs/data" 
+      "dfs.datanode.data.dir"       =>  "/hadoop/hdfs/data"
     },
     "yarn_site" => {
       "yarn.nodemanager.local-dirs" => "/hadoop/yarn/local"
