@@ -1,10 +1,9 @@
 class ambari::os::jdk() {
 
- $java_version = $::ambari::os::java_version
+ $java_version = $::ambari::params::java_version
 
  package { "${java_version}":
-   ensure => 'installed',
-   require => Package['yum']
+   ensure => 'installed'
  }
 
 }

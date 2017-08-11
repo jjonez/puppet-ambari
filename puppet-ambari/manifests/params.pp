@@ -18,7 +18,7 @@ class ambari::params {
   $hdp_repo_url              	= 'http://public-repo-1.hortonworks.com/HDP/centos7/2.x/updates/2.6.1.0'
   $hdp_utils_repo_url        	= 'http://public-repo-1.hortonworks.com/HDP-UTILS-1.1.0.21/repos/centos7'
   # Internal yum repo URL. Required if installing jetty9 even if you are on the internet
-  $internal_repo_url        	= 'http://192.168.56.104/rpms/centos7',
+  $internal_repo_url        	= 'http://192.168.56.104/rpms/centos7'
 
   # Java Prams
   $java_version                 = 'java-1.8.0-openjdk-devel'
