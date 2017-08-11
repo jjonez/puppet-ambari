@@ -1,16 +1,33 @@
 #!/bin/env bash
 
-# Set values from the config file
-. $(readlink -f $(dirname $0))/install.conf
 
-PMODS=$INSTDIR/puppet_modules
-PUPCMD="/opt/puppetlabs/bin/puppet"
-TARGET_ENV=production
+
+function usage() {
+  [ "$1" != "" ] && echo -e "$1"
+  echo "usage: `basename $0` <config_file>"
+  echo "Options:"
+  echo "  config_file   -  see install.conf for an example"
+  exit 254
+}
 
 function error() {
   echo -e "ERROR: $1"
   exit 254
 }
+
+
+config_file=$1
+[ $# -ne 1 ] && usage "Missing required config file."
+[ ! -f $1 ] && usage "Config file does not exist: $config_file"
+
+# Set values from the config file
+source $config_file
+
+
+PMODS=$INSTDIR/puppet_modules
+PUPCMD="/opt/puppetlabs/bin/puppet"
+TARGET_ENV=production
+
 
 
 [ ! -d $PMODS ] &&  error "Source puppet modules directory does not exist: $PMODS"

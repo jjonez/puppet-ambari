@@ -1,11 +1,5 @@
 #!/bin/bash
 
-# Set values from the config file
-. $(readlink -f $(dirname $0))/install.conf
-
-RPMDIR=$INSTDIR/packages/nginx-rpms
-TEMPLATES=$INSTDIR/templates
-
 function error() {
   echo -e "ERROR: $1"
   exit 254
@@ -14,25 +8,39 @@ function error() {
 
 function usage() {
   [ "$1" != "" ] && echo -e "$1"
-  echo $1
-  echo "usage: `basename $0` <action>"
+  echo "usage: `basename $0` <config_file>"
   echo "Installs nginx and configure it for serving files. Must be run as root."
   echo "This requirees that port 80 be open for http and DNS is configured."
   echo "You should set the REPO_DOC_ROOT in install.conf. "
   echo "  REPO_DOC_ROOT is the directory where files will be located."
   echo    "Default is /var/www/html/repos"
-  echo "OPTIONS:"
-  echo "  action        - e.g. install or help"
-  exit 254 
+  echo "Options:"
+  echo "  config_file   -  see install.conf for an example"
+  exit 254
 }
 
-#### SETUP ####i
+#### SETUP ####
+
+config_file=$1
+[ $# -ne 1 ] && usage "Missing required config file." 
+[ ! -f $1 ] && usage "Config file does not exist: $config_file"
+
+# Set values from the config file
+source $config_file
+
+
+NGINX_DIR=$INSTDIR/repo_files/packages/nginx-rpms
+CREATEREPO_DIR=$INSTDIR/repo_files/packages/createrepo
+
+
+this_dir=$(dirname $(readlink -f $0))
+TEMPLATES=${this_dir}/templates
 
 [ "$REPO_DOC_ROOT" = "" ] && usage "REPO_DOC_ROOT is not set in the install.conf file"
-[ "$1" != "install" ] && usage ""
 
 [ ! -d $TEMPLATES ] && error "The directory structure is not correct - templates"
-[ ! -d $RPMDIR ] && error "The directory structure is not correct - rpms"
+[ ! -d $NGINX_DIR ] && error "The directory structure is not correct - rpms,nginx"
+[ ! -d $CREATEREPO_DIR ] && error "The directory structure is not correct - rpms,createrepo"
 
 ########################
 ##### FUNCTION FUNCTIONSS 
@@ -74,8 +82,8 @@ function configure_nginx() {
 #### DO INSTALL ####
 
 echo "  ----- About to install rpms  ----"
-yum -y -d 1 localinstall $RPMDIR/*
-
+yum -y -d 1 localinstall $NGINX_DIR/*
+yum -y -d 1 localinstall $CREATEREPO_DIR/*
 
 configure_nginx
 mkdir -p ${REPO_DOC_ROOT}
@@ -87,3 +95,4 @@ test_server
 
 echo ""
 echo "SUCCESS: COMPLETED CONFIGURATION OF FILE SERVER ON http://${HOSTNAME}:80"
+echo "Next setp is to prepare_repo_server.sh"

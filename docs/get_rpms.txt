@@ -1,0 +1,29 @@
+There are several ways to obtain RPMs
+
+#### Use Yum --downloadonly option
+# This will only download the packages needed for  your server's current state
+yum install --downloadonly --downloaddir=/repo_files/package <packages>
+
+#### Use repotrack --- gets MANY dependencies
+# This will download ll packages required.
+# It has a bug causing it to download i686 in addition to x86_64 packages.
+# To get around this issue, you can just delete them after as we do below.
+# Also see repoquery
+repotrack -a x86_64 -p /repo_files/package <packages>
+
+ls /repo_files/package/* |egrep '\.i686\.rpm$' |xargs -i rm {}
+
+## Note - yumrdownloader --resolve does not seem to get all of the dependencies
+
+
+#### RHEL7 requirement: libtirpc-devel
+# Ambari will fail to deploy due to a yum dependency error on RHEL 7
+# Obtain the missing rpm as follows:
+
+# enable the repo
+yum-config-manager --enable rhui-REGION-rhel-server-optional
+# get the rpms for installing "offline"
+yum install --downloadonly --downloaddir=/repo_files/package libtirpc-devel
+
+
+
