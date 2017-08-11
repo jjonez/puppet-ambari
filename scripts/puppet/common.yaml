@@ -1,0 +1,21 @@
+ambari_server: puppetclient.puppet.local
+
+master_nodes:
+  - master1.puppet.local
+  - master2.puppet.local
+  - master3.puppet.local
+
+worker_nodes:
+  - woker1.puppet.local
+  - woker2.puppet.local
+  - woker3.puppet.local
+
+elastic_nodes: elastic.puppet.local
+
+ambari_repo_url: http://public-repo-1.hortonworks.com/ambari/centos7/2.x/updates/2.5.1.0
+
+hdp_repo_url: http://public-repo-1.hortonworks.com/HDP/centos7/2.x/updates/2.6.1.0
+
+hdp_utils_repo_url: http://public-repo-1.hortonworks.com/HDP-UTILS-1.1.0.21/repos/centos7
+
+internal_repo_url: http://192.168.56.104/rpms/centos7
