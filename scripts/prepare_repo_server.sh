@@ -28,7 +28,12 @@ config_file=$1
 # Set values from the config file
 source $config_file
 
-REPO_SRC=$INSTDIR/repo_files
+
+RPMS_DIR=$INSTDIR/repo_files/rpms/centos7
+FILES_DIR=$INSTDIR/repo_files/files
+HDP_DIR=$INSTDIR/repo_files/HDP
+AMBARI_DIR=$INSTDIR/repo_files/AMBARI
+HDP_UTILS_DIR=$INSTDIR/repo_files/HDP-UTILS
 
 
 [ "$REPO_DOC_ROOT" = "" ] && usage "REPO_DOC_ROOT is not set in the install.conf file"
@@ -67,7 +72,7 @@ function prepare_repos() {
 # RPMS
 echo " -- creating yum repo"
 echo "Copying repo files (this may take a minute)...."
-cp -pr $REPO_SRC/rpms $REPO_DOC_ROOT
+cp -pr $RPMS_DIR $REPO_DOC_ROOT
 
 createrepo $REPO_DOC_ROOT/rpms/centos7
 urls_out+="\nRPMs  http://${HOSTNAME}/rpms/centos7"
@@ -76,14 +81,14 @@ urls_out+="\nRPMs  http://${HOSTNAME}/rpms/centos7"
 # FILES
 echo " -- creating files repo"
 echo "Copying repo files (this may take a minute)...."
-cp -pr $REPO_SRC/files $REPO_DOC_ROOT
+cp -pr $FILES_DIR/files $REPO_DOC_ROOT
 urls_out+="\nFiles http://${HOSTNAME}/files"
 
 
 # HORTONWORKS REPOS
-prepare_repos "$REPO_SRC/hdp/HDP/*"  "HDP/centos7"
-prepare_repos "$REPO_SRC/hdp/AMBARI/*"  "ambari/centos7"
-prepare_repos "$REPO_SRC/hdp/HDP-UTILS/*"  ""
+prepare_repos "$HDP_DIR/*"  "HDP/centos7"
+prepare_repos "$AMBARI_DIR/*"  "ambari/centos7"
+prepare_repos "$HDP_UTILS_DIR/*"  ""
 
 
 echo " -------------------------"
