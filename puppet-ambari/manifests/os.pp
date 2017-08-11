@@ -1,7 +1,5 @@
 class ambari::os(
 
-  $java_version              = $::ambari::params::java_version
-
 )inherits ::ambari::params {
 
   contain ambari::os::packages

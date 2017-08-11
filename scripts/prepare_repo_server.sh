@@ -28,7 +28,6 @@ config_file=$1
 # Set values from the config file
 source $config_file
 
-REPO_SRC=$INSTDIR/repo_files
 
 
 [ "$REPO_DOC_ROOT" = "" ] && usage "REPO_DOC_ROOT is not set in the install.conf file"
@@ -64,26 +63,58 @@ function prepare_repos() {
 
 ######## MAIN ##########
 
-# RPMS
-echo " -- creating yum repo"
-echo "Copying repo files (this may take a minute)...."
-cp -pr $REPO_SRC/rpms $REPO_DOC_ROOT
+NGINX_DIR=$INSTDIR/repo_files/packages/nginx-rpms
+CREATEREPO_DIR=$INSTDIR/repo_files/packages/createrepo
 
-createrepo $REPO_DOC_ROOT/rpms/centos7
+RPMS_DIR=$INSTDIR/repo_files/rpms
+RPMS_DL_DIR=$INSTDIR/repo_files/dl/rpms
+FILES_DL_DIR=$INSTDIR/repo_files/dl/files
+HDP_DIR=$INSTDIR/repo_files/dl/HDP
+AMBARI_DIR=$INSTDIR/repo_files/dl/AMBARI
+HDP_UTILS_DIR=$INSTDIR/repo_files/dl/HDP-UTILS
+
+
+# prepare
+  yum_root=$REPO_DOC_ROOT/rpms/centos7
+  mkdir -p $REPO_DOC_ROOT/rpms/centos7
+
+# RPMS (regular)
+  echo " -- creating yum repo"
+  echo "Copying repo files (this may take a minute)...."
+  cp -pr $RPMS_DIR/* $yum_root
+
+# RPMS DL
+  echo " -- creating yum repo from dl-rpms"
+  echo "Copying repo files (this may take a minute)...."
+  cp -pr $RPMS_DL_DIR $yum_root
+
+# RPMS nginx
+  echo " -- creating yum repo from nginx-rpms"
+  echo "Copying repo files (this may take a minute)...."
+  cp -pr $NGINX_DIR $yum_root
+
+# RPMS nginx
+  echo " -- creating yum repo from createrepo-rpms"
+  echo "Copying repo files (this may take a minute)...."
+  cp -pr $CREATEREPO_DIR $yum_root
+
+
+createrepo $yum_root
 urls_out+="\nRPMs  http://${HOSTNAME}/rpms/centos7"
+
 
 
 # FILES
 echo " -- creating files repo"
 echo "Copying repo files (this may take a minute)...."
-cp -pr $REPO_SRC/files $REPO_DOC_ROOT
+cp -pr $FILES_DIR/files $REPO_DOC_ROOT
 urls_out+="\nFiles http://${HOSTNAME}/files"
 
 
 # HORTONWORKS REPOS
-prepare_repos "$REPO_SRC/hdp/HDP/*"  "HDP/centos7"
-prepare_repos "$REPO_SRC/hdp/AMBARI/*"  "ambari/centos7"
-prepare_repos "$REPO_SRC/hdp/HDP-UTILS/*"  ""
+prepare_repos "$HDP_DIR/*"  "HDP/centos7"
+prepare_repos "$AMBARI_DIR/*"  "ambari/centos7"
+prepare_repos "$HDP_UTILS_DIR/*"  ""
 
 
 echo " -------------------------"
