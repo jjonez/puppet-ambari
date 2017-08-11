@@ -29,14 +29,18 @@ config_file=$1
 source $config_file
 
 
-RPMDIR=$INSTDIR/packages
-TEMPLATES=$INSTDIR/templates
+NGINX_DIR=$INSTDIR/repo_files/packages/nginx-rpms
+CREATEREPO_DIR=$INSTDIR/repo_files/packages/createrepo
+
+
+this_dir=$(dirname $(readlink -f $0))
+TEMPLATES=${this_dir}/templates
 
 [ "$REPO_DOC_ROOT" = "" ] && usage "REPO_DOC_ROOT is not set in the install.conf file"
 
 [ ! -d $TEMPLATES ] && error "The directory structure is not correct - templates"
-[ ! -d $RPMDIR/nginx-rpms ] && error "The directory structure is not correct - rpms,nginx"
-[ ! -d $RPMDIR/createrepo ] && error "The directory structure is not correct - rpms,createrepo"
+[ ! -d $NGINX_DIR ] && error "The directory structure is not correct - rpms,nginx"
+[ ! -d $CREATEREPO_DIR ] && error "The directory structure is not correct - rpms,createrepo"
 
 ########################
 ##### FUNCTION FUNCTIONSS 
@@ -78,8 +82,8 @@ function configure_nginx() {
 #### DO INSTALL ####
 
 echo "  ----- About to install rpms  ----"
-yum -y -d 1 localinstall $RPMDIR/nginx-rpms/*
-yum -y -d 1 localinstall $RPMDIR/createrepo/*
+yum -y -d 1 localinstall $NGINX_DIR/*
+yum -y -d 1 localinstall $CREATEREPO_DIR/*
 
 configure_nginx
 mkdir -p ${REPO_DOC_ROOT}
@@ -91,3 +95,4 @@ test_server
 
 echo ""
 echo "SUCCESS: COMPLETED CONFIGURATION OF FILE SERVER ON http://${HOSTNAME}:80"
+echo "Next setp is to prepare_repo_server.sh"
