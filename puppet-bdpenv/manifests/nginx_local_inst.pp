@@ -1,5 +1,7 @@
-class bdpenv::nginx_repo() {
+class bdpenv::nginx_local_inst() {
 
+ # Install and configure nginx from local rpms.
+ 
 
  $pkg_names = [
        'fontconfig-2.10.95-10.el7.x86_64',
