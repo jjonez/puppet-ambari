@@ -45,5 +45,6 @@ node 'puppetclient1' {
 
 ## Authors
 
+Ed Gleeck
 Nasheb Ismaily  
 James Jones 
