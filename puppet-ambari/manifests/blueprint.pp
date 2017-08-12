@@ -20,8 +20,10 @@ class ambari::blueprint(
   contain ambari::blueprint::repos
   contain ambari::blueprint::cluster
   contain ambari::blueprint::hostmap
+  contain ambari::blueprint::agentrestart
 
   Class[::ambari::blueprint::repos] ->
+  Class[::ambari::blueprint::agentrestart] ->
   Class[::ambari::blueprint::cluster] ->
   Class[::ambari::blueprint::hostmap]
 
