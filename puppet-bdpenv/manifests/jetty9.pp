@@ -25,5 +25,9 @@ class bdpenv::jetty9() inherits ambari::params  {
    ensure => 'directory',
    owner  => 'jetty' ,
    mode   => '755',
+ } ->
+ service {'jetty9':
+   ensure => 'running',
+   enabled => 'true'
  }
 }
