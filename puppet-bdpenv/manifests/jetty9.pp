@@ -28,6 +28,6 @@ class bdpenv::jetty9() inherits ambari::params  {
  } ->
  service {'jetty9':
    ensure => 'running',
-   enabled => 'true'
+   enable => 'true'
  }
 }
