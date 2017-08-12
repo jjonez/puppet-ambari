@@ -81,7 +81,7 @@
       "zoo.cfg" : {
         "properties" : {
           <% @blueprint_configs["zoo_cfg"].each do |key, value| -%>
-          "<%= key %>" : "<%= value -%>",
+          "<%= key %>" : "<%= value -%>"<%= ',' if i < (@blueprint_configs["zoo_cfg"].size - 1) -%> 
           <% end -%>
         }
       }

@@ -21,7 +21,7 @@ class ambari::blueprint::cluster() {
    owner => 'root',
    group => 'root',
    mode  => '0700',
-   #notify => Exec['run_cluster_blueprint'],
+   notify => Exec['run_cluster_blueprint'],
  } -> 
  exec {
   'run_cluster_blueprint':
