@@ -1,7 +1,6 @@
 {
     "blueprint": "<%= @cluster_name %>",
     "default_password": "admin",
-    "provision_action" : "INSTALL_ONLY",
     "host_groups": [
         <% @master_nodes.each_with_index do |host, i| -%>
         {
