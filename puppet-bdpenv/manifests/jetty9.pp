@@ -10,7 +10,7 @@ class bdpenv::jetty9() inherits ambari::params  {
  $internal_repo_url = $::ambari::params::internal_repo_url
 
  if $internal_repo_url != undef and $internal_repo_url != "" {
-    yumrepo { 'internal':
+    yumrepo { 'internal2':
      descr    => 'internal repo',
      enabled  => 1,
      baseurl  => "${internal_repo_url}",
