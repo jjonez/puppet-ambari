@@ -69,9 +69,9 @@ CREATEREPO_DIR=$INSTDIR/repo_files/packages/createrepo
 RPMS_DIR=$INSTDIR/repo_files/rpms
 RPMS_DL_DIR=$INSTDIR/repo_files/dl/rpms
 FILES_DL_DIR=$INSTDIR/repo_files/dl/files
-HDP_DIR=$INSTDIR/repo_files/dl/HDP
-AMBARI_DIR=$INSTDIR/repo_files/dl/AMBARI
-HDP_UTILS_DIR=$INSTDIR/repo_files/dl/HDP-UTILS
+HDP_DIR=$INSTDIR/repo_files/dl/hdp/HDP
+AMBARI_DIR=$INSTDIR/repo_files/dl/hdp/AMBARI
+HDP_UTILS_DIR=$INSTDIR/repo_files/dl/hdp/HDP-UTILS
 
 
 # prepare
