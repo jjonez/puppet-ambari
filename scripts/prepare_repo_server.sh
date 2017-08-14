@@ -108,7 +108,7 @@ urls_out+="\nRPMs  http://${HOSTNAME}/rpms/centos7"
 echo " -- creating files repo"
 echo "Copying repo files (this may take a minute)...."
 cp -pr $FILES_DIR/files $REPO_DOC_ROOT
-urls_out+="\nFiles http://${HOSTNAME}/files"
+#urls_out+="\nFiles http://${HOSTNAME}/files"
 
 
 # HORTONWORKS REPOS
