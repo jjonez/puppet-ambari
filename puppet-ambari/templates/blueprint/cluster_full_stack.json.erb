@@ -38,6 +38,17 @@
       }
     },
     {
+      "hadoop-env": {
+	"properties_attributes": { },
+	"properties": {
+		"dtnode_heapsize": "1G",
+		"namenode_opt_newsize": "100m",
+		"namenode_heapsize": "2G",
+		"namenode_opt_maxpermsize": "256m"
+        }
+      }
+    },
+    {
       "yarn-site" : {
         "properties" : {
           <% @blueprint_configs["yarn_site"].each do |key, value| -%>
