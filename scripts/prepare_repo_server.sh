@@ -52,14 +52,16 @@ function prepare_repos() {
 
   echo "Untarring repo files (this may take a minute)...."
   for i in $l_src_path ;do
-    get_base_pkg_name $i
-    base=$retval
-    mkdir -p $REPO_DOC_ROOT/$base
+    if [ -f $i ];then
+      get_base_pkg_name $i
+      base=$retval
+      mkdir -p $REPO_DOC_ROOT/$base
 
-    echo " -- UNTARRING $i "
-    tar xzf $i -C $REPO_DOC_ROOT/$base
+      echo " -- UNTARRING $i "
+      tar xzf $i -C $REPO_DOC_ROOT/$base
 
-    urls_out+="\n$base  http://${HOSTNAME}/$base/$l_url_suffix"
+      urls_out+="\n$base  http://${HOSTNAME}/$base/$l_url_suffix"
+    fi
   done
 }
 
@@ -70,47 +72,52 @@ CREATEREPO_DIR=$INSTDIR/repo_files/packages/createrepo
 
 RPMS_DIR=$INSTDIR/repo_files/rpms
 RPMS_DL_DIR=$INSTDIR/repo_files/dl/rpms
-FILES_DL_DIR=$INSTDIR/repo_files/dl/files
 HDP_DIR=$INSTDIR/repo_files/dl/hdp/HDP
 AMBARI_DIR=$INSTDIR/repo_files/dl/hdp/AMBARI
 HDP_UTILS_DIR=$INSTDIR/repo_files/dl/hdp/HDP-UTILS
 
 
 # prepare
-  yum_root=$REPO_DOC_ROOT/rpms/centos7
-  mkdir -p $REPO_DOC_ROOT/rpms/centos7
+yum_root=$REPO_DOC_ROOT/rpms/centos7
+mkdir -p $REPO_DOC_ROOT/rpms/centos7 2>/dev/null
 
-# RPMS (regular)
-  echo " -- creating yum repo"
-  echo "Copying repo files (this may take a minute)...."
-  cp -pr $RPMS_DIR/* $yum_root
+rpm_repo_updated=0
+if [ -d $RPMS_DIR ];then
+ # RPMS (regular)
+   echo " -- creating yum repo"
+   echo "Copying repo files (this may take a minute)...."
+   cp -pr $RPMS_DIR/* $yum_root
+   rpm_repo_updated=1
+fi
+if [ -d $RPMS_DL_DIR ];then
+  # RPMS DL
+   echo " -- creating yum repo from dl-rpms"
+   echo "Copying repo files (this may take a minute)...."
+   cp -pr $RPMS_DL_DIR $yum_root
+   rpm_repo_updated=1
+fi
+if [ -d $NGINX_DIR ];then
+  # RPMS nginx
+    echo " -- creating yum repo from nginx-rpms"
+    echo "Copying repo files (this may take a minute)...."
+    cp -pr $NGINX_DIR $yum_root
+    rpm_repo_updated=1
+fi
 
-# RPMS DL
-  echo " -- creating yum repo from dl-rpms"
-  echo "Copying repo files (this may take a minute)...."
-  cp -pr $RPMS_DL_DIR $yum_root
+if [ -d $CREATEREPO_DIR ];then
+  # RPMS nginx
+   echo " -- creating yum repo from createrepo-rpms"
+   echo "Copying repo files (this may take a minute)...."
+   cp -pr $CREATEREPO_DIR $yum_root
+   rpm_repo_updated=1
+fi
 
-# RPMS nginx
-  echo " -- creating yum repo from nginx-rpms"
-  echo "Copying repo files (this may take a minute)...."
-  cp -pr $NGINX_DIR $yum_root
-
-# RPMS nginx
-  echo " -- creating yum repo from createrepo-rpms"
-  echo "Copying repo files (this may take a minute)...."
-  cp -pr $CREATEREPO_DIR $yum_root
+if [ $rpm_repo_updated -ne 0 ];then
+  createrepo $yum_root
+  urls_out+="\nRPMs  http://${HOSTNAME}/rpms/centos7"
+fi
 
 
-createrepo $yum_root
-urls_out+="\nRPMs  http://${HOSTNAME}/rpms/centos7"
-
-
-
-# FILES
-echo " -- creating files repo"
-echo "Copying repo files (this may take a minute)...."
-cp -pr $FILES_DIR/files $REPO_DOC_ROOT
-#urls_out+="\nFiles http://${HOSTNAME}/files"
 
 
 # HORTONWORKS REPOS
