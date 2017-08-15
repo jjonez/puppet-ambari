@@ -3,14 +3,18 @@
 
 retval=
 
+REPO_DOC_ROOT="/var/www/html/repos"
+
 function usage() {
   [ "$1" != "" ] && echo -e "$1"
-  echo "usage: `basename $0` <config_file>"
-  echo " Prepares the REPO_DOC_ROOT folder. ($REPO_DOC_ROOT)."
-  echo " REPO_DOC_ROOT is set in config_file. "
-  echo " REPO_DOC_ROOT is the directory where repo files will be located."
+  echo "usage: `basename $0` <disk_dir> [repo_doc_root]"
+  echo " Prepares the rpms in repo_doc_roo folder. (default $REPO_DOC_ROOT)."
   echo "Options:"
-  echo "  config_file   -  see install.conf for an example"
+  echo "  disk_dir        - directory contianing the repo_files directory."
+  echo "                    this can be the disk mount point or a copy."
+  echo "                    It must contiain the 'repo_files' directory. e.g. /mnt/cdrom"
+  echo "  repo_doc_root   - (optional) default is $REPO_DOC_ROOT."
+  echo "                    this is the directory where rpms will be located."
   exit 254
 }
 
@@ -21,12 +25,10 @@ function error() {
 
 #### SETUP ####
 
-config_file=$1
-[ $# -ne 1 ] && usage "Missing required config file." 
-[ ! -f $1 ] && usage "Config file does not exist: $config_file"
+[ $# -lt 1 ] && usage "Missing required disk_dir."
 
-# Set values from the config file
-source $config_file
+INSTDIR=$1
+[ "$2" != "" ] && REPO_DOC_ROOT=$2
 
 
 
